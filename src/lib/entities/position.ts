@@ -1,5 +1,5 @@
 export enum Position {
-  FRONT,
-  BACK,
-  FULL
+  START,
+  MIDDLE,
+  END
 }

@@ -2,29 +2,26 @@
   import { Move } from "$lib/entities/move";
   import { findCompletedCells, updateCompletedCells } from "$lib/util";
   import { Direction } from "$lib/entities/direction";
-  import { Position } from "$lib/entities/position";
 
   let cols = $state(3);
   let rows = $state(3);
   let grid: String[] = $state([]);
 
-  $effect(() => {
-    grid = Array.from(
-      { length: rows * cols },
-      (_, i) => Move.NONE.toString() + Direction.NONE.toString() + Position.FULL.toString()
-    );
-  });
-
   let nextMove = $state("O");
 
+  $effect(() => {
+    grid = Array.from({ length: rows * cols }, (_, i) => Move.NONE.toString());
+    nextMove = "O";
+  });
+
   function handleClick(cell: number) {
-    if (grid[cell] != DigitDisplay.NONE) return;
+    if (grid[cell] != Move.NONE.toString()) return;
 
     if (nextMove === "X") {
-      grid[cell] = DigitDisplay.X;
+      grid[cell] = Move.X.toString();
       nextMove = "O";
     } else {
-      grid[cell] = DigitDisplay.O;
+      grid[cell] = Move.O.toString();
       nextMove = "X";
     }
 
@@ -47,10 +44,10 @@
 
   <div class="flex justify-center bg-gray-100 p-4">
     <div class="content-center">
-      <div class="grid gap-1 bg-black" style="grid-template-columns: repeat({cols}, 1fr);">
+      <div class="grid bg-black" style="grid-template-columns: repeat({cols}, 1fr);">
         {#each Array.from({ length: cols * rows }) as item, i}
-          <button class="bg-white p-8" onclick={() => handleClick(i)}>
-            {grid[i]}
+          <button class="h-16 w-16 border-2 bg-white" onclick={() => handleClick(i)}>
+            <img src={`/assets/${grid[i]}.png`} alt={grid[i]} />
           </button>
         {:else}
           <div class="p-8 bg-white">Invalid!</div>
