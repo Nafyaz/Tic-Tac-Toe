@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "svelte-practice",
+      "name": "tic-tac-toe",
       "devDependencies": {
         "@chromatic-com/storybook": "^4.1.1",
         "@eslint/compat": "^1.4.0",

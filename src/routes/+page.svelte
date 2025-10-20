@@ -5,7 +5,7 @@
 
   let cols = $state(3);
   let rows = $state(3);
-  let grid: String[] = $state([]);
+  let grid: String[] = $state(Array.from({ length: rows * cols }, (_, i) => Move.NONE.toString()));
 
   let nextMove = $state("O");
 
