@@ -2,8 +2,11 @@
   import { Move } from "$lib/entities/move";
   import { findCompletedCells, updateCompletedCells } from "$lib/util";
   import { Direction } from "$lib/entities/direction";
-  import { Button } from "$lib/components/ui/button";
+  import * as Popover from "$lib/components/ui/popover";
+  import * as RadioGroup from "$lib/components/ui/radio-group";
   import { Input } from "$lib/components/ui/input";
+  import { Button } from "$lib/components/ui/button";
+  import { Label } from "$lib/components/ui/label";
 
   let rows = $state(3);
   let cols = $state(3);
@@ -42,11 +45,13 @@
   }
 </script>
 
+<!--TODO: Add responsiveness in everything-->
 <div class="flex min-h-screen min-w-screen flex-col">
   <div class="flex justify-center">
-    <div class="flex w-3/5 justify-between">
-      <div class="m-8 flex gap-4">
+    <div class="w-3/5 md:flex">
+      <div class="m-8 w-1/3 content-center gap-4 md:flex">
         <div>
+          <!--          TODO: Turn "Rows" or "Columns" to labels for inputs-->
           Rows: <Input class="w-32" bind:value={rows} />
         </div>
         <div>
@@ -54,8 +59,9 @@
         </div>
       </div>
 
-      <div class="m-8 flex gap-4">
+      <div class="m-8 w-1/3 content-center justify-center md:flex">
         <div class="flex items-center">
+          <!--          TODO: Change font / size of ": {score[0]}"-->
           <img class="h-8 w-8" src="/assets/1.png" alt="O" />: {score[0]}
         </div>
         <div class="flex items-center">
@@ -63,8 +69,45 @@
         </div>
       </div>
 
-      <div class="m-8">
-        <Button>Play with your friend</Button>
+      <div class="m-8 w-1/3 items-center justify-end md:flex">
+        <Popover.Root>
+          <Popover.Trigger>
+            <Button>Play With Your Friend</Button>
+          </Popover.Trigger>
+          <Popover.Content class="w-80">
+            <!--            TODO: Put this in a formsnap-->
+            <div class="grid grid-cols-2 gap-x-2 gap-y-3">
+              <div>
+                Rows: <Input />
+              </div>
+              <div>
+                Columns: <Input />
+              </div>
+
+              <div class="col-span-2">
+                <Label class="py-3" for="who-starts">Who Starts?</Label>
+                <RadioGroup.Root value="you" id="who-starts">
+                  <div class="flex items-center space-x-2">
+                    <RadioGroup.Item value="you" id="you" />
+                    <Label for="you">You</Label>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <RadioGroup.Item value="friend" id="friend" />
+                    <Label for="friend">Your Friend</Label>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <RadioGroup.Item value="rand" id="rand" />
+                    <Label for="rand">Random</Label>
+                  </div>
+                </RadioGroup.Root>
+              </div>
+
+              <div class="col-span-2">
+                <Button class="w-full">Generate Links</Button>
+              </div>
+            </div>
+          </Popover.Content>
+        </Popover.Root>
       </div>
     </div>
   </div>
@@ -74,7 +117,8 @@
       {#if rows * cols > 0}
         <div class="grid" style="grid-template-columns: repeat({cols}, 1fr);">
           {#each Array.from({ length: cols * rows }) as item, i}
-            <button class="h-16 w-16 border-2 border-black bg-white" onclick={() => handleClick(i)}>
+            <!--TODO: Button should have cursor-pointer only if grid[i] is Move.NONE.toString()-->
+            <button class="h-16 w-16 cursor-pointer border-2 border-black bg-white" onclick={() => handleClick(i)}>
               <img src={`/assets/${grid[i]}.png`} alt={grid[i]} />
             </button>
           {/each}
