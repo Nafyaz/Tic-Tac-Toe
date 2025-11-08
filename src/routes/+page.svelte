@@ -45,17 +45,22 @@
   }
 </script>
 
+<svelte:head>
+  <title>Tic Tac Toe</title>
+</svelte:head>
+
 <!--TODO: Add responsiveness in everything-->
 <div class="flex min-h-screen min-w-screen flex-col">
   <div class="flex justify-center">
     <div class="w-3/5 md:flex">
       <div class="m-8 w-1/3 content-center gap-4 md:flex">
         <div>
-          <!--          TODO: Turn "Rows" or "Columns" to labels for inputs-->
-          Rows: <Input class="w-32" bind:value={rows} />
+          <Label class="m-1" for="rows">Rows</Label>
+          <Input class="w-32" bind:value={rows} />
         </div>
         <div>
-          Columns: <Input class="w-32" bind:value={cols} />
+          <Label class="m-1" for="cols">Cols</Label>
+          <Input class="w-32" bind:value={cols} />
         </div>
       </div>
 
@@ -72,40 +77,43 @@
       <div class="m-8 w-1/3 items-center justify-end md:flex">
         <Popover.Root>
           <Popover.Trigger>
-            <Button>Play With Your Friend</Button>
+            <Button>Play With A Friend</Button>
           </Popover.Trigger>
           <Popover.Content class="w-80">
-            <!--            TODO: Put this in a formsnap-->
-            <div class="grid grid-cols-2 gap-x-2 gap-y-3">
-              <div>
-                Rows: <Input />
-              </div>
-              <div>
-                Columns: <Input />
-              </div>
+            <form method="POST">
+              <div class="grid grid-cols-2 gap-x-2 gap-y-3">
+                <div>
+                  <Label class="m-1" for="rows">Rows</Label>
+                  <Input name="rows" type="number" value="3" />
+                </div>
+                <div>
+                  <Label class="m-1" for="cols">Cols</Label>
+                  <Input name="cols" type="number" value="3" />
+                </div>
 
-              <div class="col-span-2">
-                <Label class="py-3" for="who-starts">Who Starts?</Label>
-                <RadioGroup.Root value="you" id="who-starts">
-                  <div class="flex items-center space-x-2">
-                    <RadioGroup.Item value="you" id="you" />
-                    <Label for="you">You</Label>
-                  </div>
-                  <div class="flex items-center space-x-2">
-                    <RadioGroup.Item value="friend" id="friend" />
-                    <Label for="friend">Your Friend</Label>
-                  </div>
-                  <div class="flex items-center space-x-2">
-                    <RadioGroup.Item value="rand" id="rand" />
-                    <Label for="rand">Random</Label>
-                  </div>
-                </RadioGroup.Root>
-              </div>
+                <div class="col-span-2">
+                  <Label class="py-3" for="who-starts">Who Will Start?</Label>
+                  <RadioGroup.Root value="you" id="who-starts">
+                    <div class="flex items-center space-x-2">
+                      <RadioGroup.Item value="you" id="you" />
+                      <Label for="you">You</Label>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <RadioGroup.Item value="friend" id="friend" />
+                      <Label for="friend">Your Friend</Label>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <RadioGroup.Item value="rand" id="rand" />
+                      <Label for="rand">Random</Label>
+                    </div>
+                  </RadioGroup.Root>
+                </div>
 
-              <div class="col-span-2">
-                <Button class="w-full">Generate Links</Button>
+                <div class="col-span-2">
+                  <Button type="submit" class="w-full">Generate Links</Button>
+                </div>
               </div>
-            </div>
+            </form>
           </Popover.Content>
         </Popover.Root>
       </div>
