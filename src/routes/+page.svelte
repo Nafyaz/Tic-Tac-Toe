@@ -50,76 +50,76 @@
 </svelte:head>
 
 <!--TODO: Add responsiveness in everything-->
-<div class="flex min-h-screen min-w-screen flex-col">
-  <div class="flex justify-center">
-    <div class="w-3/5 md:flex">
-      <div class="m-8 w-1/3 content-center gap-4 md:flex">
-        <div>
-          <Label class="m-1" for="rows">Rows</Label>
-          <Input class="w-32" bind:value={rows} />
-        </div>
-        <div>
-          <Label class="m-1" for="cols">Cols</Label>
-          <Input class="w-32" bind:value={cols} />
-        </div>
+<div class="flex">
+  <div class="mx-auto grid grid-cols-1 items-center gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="mx-auto grid gap-2 py-2 lg:grid-cols-2">
+      <div>
+        <Label class="m-1" for="rows">Rows</Label>
+        <Input class="w-32" bind:value={rows} />
       </div>
-
-      <div class="m-8 w-1/3 content-center justify-center md:flex">
-        <div class="flex items-center">
-          <!--          TODO: Change font / size of ": {score[0]}"-->
-          <img class="h-8 w-8" src="/assets/1.png" alt="O" />: {score[0]}
-        </div>
-        <div class="flex items-center">
-          <img class="h-8 w-8" src="/assets/2.png" alt="X" />: {score[1]}
-        </div>
-      </div>
-
-      <div class="m-8 w-1/3 items-center justify-end md:flex">
-        <Popover.Root>
-          <Popover.Trigger>
-            <Button>Play With A Friend</Button>
-          </Popover.Trigger>
-          <Popover.Content class="w-80">
-            <form method="POST">
-              <div class="grid grid-cols-2 gap-x-2 gap-y-3">
-                <div>
-                  <Label class="m-1" for="rows">Rows</Label>
-                  <Input name="rows" type="number" value="3" />
-                </div>
-                <div>
-                  <Label class="m-1" for="cols">Cols</Label>
-                  <Input name="cols" type="number" value="3" />
-                </div>
-
-                <div class="col-span-2">
-                  <Label class="py-3" for="who-starts">Who Will Start?</Label>
-                  <RadioGroup.Root value="you" id="who-starts">
-                    <div class="flex items-center space-x-2">
-                      <RadioGroup.Item value="you" id="you" />
-                      <Label for="you">You</Label>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                      <RadioGroup.Item value="friend" id="friend" />
-                      <Label for="friend">Your Friend</Label>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                      <RadioGroup.Item value="rand" id="rand" />
-                      <Label for="rand">Random</Label>
-                    </div>
-                  </RadioGroup.Root>
-                </div>
-
-                <div class="col-span-2">
-                  <Button type="submit" class="w-full">Generate Links</Button>
-                </div>
-              </div>
-            </form>
-          </Popover.Content>
-        </Popover.Root>
+      <div>
+        <Label class="m-1" for="cols">Cols</Label>
+        <Input class="w-32" bind:value={cols} />
       </div>
     </div>
-  </div>
 
+    <div class="mx-auto grid gap-2 py-2 lg:grid-cols-2">
+      <div class="flex items-center">
+        <!--          TODO: Change font / size of ": {score[0]}"-->
+        <img class="h-8 w-8" src="/assets/1.png" alt="O" />: {score[0]}
+      </div>
+      <div class="flex items-center">
+        <img class="h-8 w-8" src="/assets/2.png" alt="X" />: {score[1]}
+      </div>
+    </div>
+
+    <div class="col-span-1 mx-auto py-2 sm:col-span-2 lg:col-span-1">
+      <!--TODO: Move this popover to a different file-->
+      <Popover.Root>
+        <Popover.Trigger>
+          <Button>Play With A Friend</Button>
+        </Popover.Trigger>
+        <Popover.Content class="w-80">
+          <form method="POST">
+            <div class="grid grid-cols-2 gap-x-2 gap-y-3">
+              <div>
+                <Label class="m-1" for="rows">Rows</Label>
+                <Input name="rows" type="number" value="3" />
+              </div>
+              <div>
+                <Label class="m-1" for="cols">Cols</Label>
+                <Input name="cols" type="number" value="3" />
+              </div>
+
+              <div class="col-span-2">
+                <Label class="py-3" for="who-starts">Who Will Start?</Label>
+                <RadioGroup.Root value="you" id="who-starts">
+                  <div class="flex items-center space-x-2">
+                    <RadioGroup.Item value="you" id="you" />
+                    <Label for="you">You</Label>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <RadioGroup.Item value="friend" id="friend" />
+                    <Label for="friend">Your Friend</Label>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <RadioGroup.Item value="rand" id="rand" />
+                    <Label for="rand">Random</Label>
+                  </div>
+                </RadioGroup.Root>
+              </div>
+
+              <div class="col-span-2">
+                <Button type="submit" class="w-full">Generate Links</Button>
+              </div>
+            </div>
+          </form>
+        </Popover.Content>
+      </Popover.Root>
+    </div>
+  </div>
+</div>
+<div>
   <div class="flex justify-center bg-gray-100 p-4">
     <div class="content-center">
       {#if rows * cols > 0}
