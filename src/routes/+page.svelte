@@ -21,6 +21,8 @@
     score = [0, 0];
   });
 
+  const isEditable = (cell: string) => cell === Move.NONE.toString();
+
   function handleClick(cell: number) {
     if (grid[cell] != Move.NONE.toString()) return;
 
@@ -125,8 +127,11 @@
       {#if rows * cols > 0}
         <div class="grid" style="grid-template-columns: repeat({cols}, 1fr);">
           {#each Array.from({ length: cols * rows }) as item, i}
-            <!--TODO: Button should have cursor-pointer only if grid[i] is Move.NONE.toString()-->
-            <button class="h-16 w-16 cursor-pointer border-2 border-black bg-white" onclick={() => handleClick(i)}>
+            <button
+              disabled={!isEditable(grid[i])}
+              class="size-16 border-2 border-black bg-white {isEditable(grid[i]) ? 'cursor-pointer' : ''}"
+              onclick={() => handleClick(i)}
+            >
               <img src={`/assets/${grid[i]}.png`} alt={grid[i]} />
             </button>
           {/each}

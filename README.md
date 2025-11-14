@@ -15,5 +15,7 @@ bun run dev
 ```
 
 ## TODOs
-1. Design for mobile (responsiveness with mobile-first)
-2. Add zoom in / out
+1. Add zoom in / out
+2. Add mongoDB
+3. Add Websocket / WebTransport
+4. Add CDN 
